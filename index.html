@@ -1,0 +1,127 @@
+<html>
+	<head>
+    <link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	</head>
+	<body>
+
+		<div class="w3-container w3-card-4">
+			<p>Masukkan ID Instagram Anda Untuk Check</p>
+			<p>      
+			<label class="w3-text-blue"><b>ID IG</b></label>
+			<input class="w3-input w3-border" id="insta_id" type="text"></p>     
+			<p><button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="inputID()">Cek</button></p>
+			<p><button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="window.location.reload(true);">Reload</button></p>
+			
+		</div>
+		<!-- <input type="text" id="insta_id" />
+		<button type="button" onclick="inputID()">Click Me</button>
+		<input type="button" onclick="window.location.reload();" value="Reset Page"> -->
+		<br /><br />
+		
+		<center>
+			<div class="card">
+			  <div class="banner">
+				<span id="pictHD"></span>
+			  </div>
+			  <div class="menu">
+			  </div>
+			  <h2 class="name"><span id="user"></span></h2>
+			  <div class="actions">
+				<div class="follow-info">
+					<h2><a href="#"><span id="ig_post_count"></span><small>Post</small></a></h2>
+				  <h2><a href="#"><span id="ig_Foll_count"></span><small>Followers</small></a></h2>
+				  <h2><a href="#"><span id="ig_Follwing_count"></span><small>Following</small></a></h2>
+				</div>
+				<div class="follow-btn">
+					<div class="desc"><span id="bio"></span></div>
+					<div class="desc"><span id="url"></span></div>
+				  <button id="" onclick="window.location.href='https://www.instagram.com/hoerzz'">Follow Author</button>
+				  <span id="follow">Link</span>
+				</div>
+			  </div>
+			</div>
+			</center>
+		
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+			<script type="text/javascript">
+				//  ig_id = "hoerzz";
+			
+				function add_commas(number) {
+					if (number.length > 3) {
+						 mod = number.length % 3;
+						 output = (mod > 0 ? (number.substring(0,mod)) : '');
+						for (i=0 ; i < Math.floor(number.length / 3); i++) {
+							if ((mod == 0) && (i == 0)) {
+								output += number.substring(mod+ 3 * i, mod + 3 * i + 3);
+							} else {
+								output+= ',' + number.substring(mod + 3 * i, mod + 3 * i + 3);	
+							}
+						}
+						return (output);
+					} else {
+						return number;
+					}
+				}
+				// // when document is ready load the counts
+				// $(document).ready(function(){
+				
+				// 	// grab from IG
+				// 	$.getJSON('https://www.instagram.com/'+ig_id+'?__a=1', function(data) {
+				//          ig_Foll_count = data['graphql']['user']['edge_followed_by']['count'].toString();
+				//          ig_Follwing_count = data['graphql']['user']['edge_follow']['count'].toString();
+				//          ig_name = data['graphql']['user']['full_name']
+				//          username = data['graphql']['user']['username']
+				//          picHD = data['graphql']['user']['profile_pic_url_hd']
+				//          picDEF = data['graphql']['user']['profile_pic_url']
+				//         ig_Follwing_count = add_commas(ig_Follwing_count);
+				//         $('#ig_Follwing_count').html(ig_Follwing_count);
+				// 		ig_Foll_count = add_commas(ig_Foll_count);
+				//         $('#ig_Foll_count').html(ig_Foll_count);
+				//         $('#picHD').html(picHD);
+				//         $('#ig_name').html(ig_name);
+				//         $('#user').html(username);
+				//         $('#pictHD').append('<img src="'+picHD+'">');
+				//         $('#pictDEF').append('<img src="'+picDEF+'">');
+				//     });
+					
+				//     function DownloadHDProfile() {
+				//     window.open('picHD');
+				//     }
+				// });
+				
+			function inputID() {
+				insta_id = document.getElementById("insta_id").value;
+			  if (insta_id == "" || !insta_id)
+				  console.log("Data ID Tidak Ditemukan")
+			  else
+			  $.getJSON('https://www.instagram.com/'+insta_id+'?__a=1', function(data) {
+						var ig_Foll_count = data['graphql']['user']['edge_followed_by']['count'].toString(),
+							ig_Follwing_count = data['graphql']['user']['edge_follow']['count'].toString(),
+							ig_post_count = data['graphql']['user']['edge_owner_to_timeline_media']['count'].toString(),
+							ig_name = data['graphql']['user']['full_name'],
+							username = data['graphql']['user']['username'],
+							bio = data['graphql']['user']['biography'],
+							ex_url = data['graphql']['user']['external_url'],
+							picHD = data['graphql']['user']['profile_pic_url_hd'],
+							picDEF = data['graphql']['user']['profile_pic_url'];
+						ig_Follwing_count = add_commas(ig_Follwing_count);
+						$('#ig_Follwing_count').html(ig_Follwing_count);
+						ig_Foll_count = add_commas(ig_Foll_count);
+						$('#ig_Foll_count').html(ig_Foll_count);
+						ig_post_count = add_commas(ig_post_count);
+						$('#ig_post_count').html(ig_post_count);
+						$('#picHD').html(picHD);
+						$('#ig_name').html(ig_name);
+						$('#user').html(username);
+						$('#bio').html(bio);
+						$('#url').html(ex_url);
+						$('#pictHD').html('<img src="'+picHD+'">');
+						$('#pictDEF').html('<img src="'+picDEF+'">');
+						$('#follow').html('https://www.instagram.com/'+insta_id+'');
+					});
+			}
+	
+			</script>
+	</body>
+</html>
