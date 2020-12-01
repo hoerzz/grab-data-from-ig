@@ -14,6 +14,7 @@
 			<input class="w3-input w3-border" id="insta_id" type="text"></p>     
 			<p><button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="inputID()">Check</button></p>
 			<p><button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="window.location.reload(true);">Reload</button></p>
+			<span id="response">Link</span>
 			
 		</div>
 		<!-- <input type="text" id="insta_id" />
@@ -125,7 +126,15 @@
 						$('#follow').html('https://www.instagram.com/'+insta_id+'');
 					});
 			}
-	
+				error: function(data)
+       				{
+
+        				console.log(data);
+
+        			$("#response").text(data.responseJSON.responseText);
+
+       				}
+				
 			</script>
 	</body>
 </html>
