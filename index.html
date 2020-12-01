@@ -8,13 +8,12 @@
 	<body>
 
 		<div class="w3-container w3-card-4">
-
+			<p>Masukkan ID Instagram Anda Untuk Check</p>
 			<p>      
-			<label class="w3-text-blue"><b>Username Instagram </b></label>
+			<label class="w3-text-blue"><b>ID IG</b></label>
 			<input class="w3-input w3-border" id="insta_id" type="text"></p>     
-			<p><button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="inputID()">Check</button></p>
+			<p><button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="inputID()">Cek</button></p>
 			<p><button class="w3-button w3-block w3-blue w3-margin-bottom" onclick="window.location.reload(true);">Reload</button></p>
-			<span id="response"></span>
 			
 		</div>
 		<br /><br />
@@ -26,7 +25,7 @@
 			  </div>
 			  <div class="menu">
 			  </div>
-			  <h2 class="name"><span id="ig_name"></span></h2>
+			  <h2 class="name"><span id="user"></span></h2>
 			  <div class="actions">
 				<div class="follow-info">
 					<h2><a href="#"><span id="ig_post_count"></span><small>Post</small></a></h2>
@@ -34,17 +33,17 @@
 				  <h2><a href="#"><span id="ig_Follwing_count"></span><small>Following</small></a></h2>
 				</div>
 				<div class="follow-btn">
-                                        <p>Bio :</p>
-					<div style="text-align : center;" class="desc"><span id="bio"></span></div>
-                                        <p>Link Ex :</p>
-					<div style="text-align : center;" class="desc"><span id="url"></span></div>
+					<p style="text-align:center;">Bio</p>
+					<div class="desc" style="text-align:center;"><span id="bio"></span></div>
+					<p style="text-align:center;">Link Ex</p>
+					<div class="desc" style="text-align:center;"><span id="url"></span></div>
 				  <button id="" onclick="window.location.href='https://www.instagram.com/hoerzz'">Follow Author</button>
-				  <span id="follow"></span>
+				  <span id="follow">Link</span>
 				</div>
 			  </div>
 			</div>
 			</center>
-			<br><br>
+		
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 			<script type="text/javascript">
 			
@@ -66,11 +65,8 @@
 				}
 				
 			function inputID() {
-				insta_id = document.getElementById("insta_id").value;
-			  if (insta_id == !insta_id)
-				  console.log("Data ID Tidak Ditemukan")
-			  else
-			  $.getJSON('https://www.instagram.com/'+insta_id+'?__a=1', function(data) {
+			insta_id = document.getElementById("insta_id").value;
+			$.getJSON('https://www.instagram.com/'+insta_id+'?__a=1', function(data) {
 						var ig_Foll_count = data['graphql']['user']['edge_followed_by']['count'].toString(),
 							ig_Follwing_count = data['graphql']['user']['edge_follow']['count'].toString(),
 							ig_post_count = data['graphql']['user']['edge_owner_to_timeline_media']['count'].toString(),
@@ -96,15 +92,6 @@
 						$('#follow').html('https://www.instagram.com/'+insta_id+'');
 					});
 			}
-				error: function(data)
-       				{
-
-        				console.log(data);
-
-        			$("#response").text(data.responseJSON.responseText);
-
-       				}
-				
 			</script>
 	</body>
 </html>
