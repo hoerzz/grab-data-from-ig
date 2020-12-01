@@ -96,7 +96,7 @@
 				
 			function inputID() {
 				insta_id = document.getElementById("insta_id").value;
-			  if (insta_id == "" || !insta_id)
+			  if (!insta_id)
 				  console.log("Data ID Tidak Ditemukan")
 			  else
 			  $.getJSON('https://www.instagram.com/'+insta_id+'?__a=1', function(data) {
